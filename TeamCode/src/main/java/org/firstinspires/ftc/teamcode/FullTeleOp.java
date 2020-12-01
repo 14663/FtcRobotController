@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-@TeleOp(name="GripperTest", group="Pushbot")
+@TeleOp(name="FullTeleOp", group="Pushbot")
 public class FullTeleOp extends OpMode {
     //Intake ramp, outtake ramp, strafing
     DcMotor fl;
