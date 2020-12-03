@@ -14,6 +14,7 @@ public class FullTeleOp extends OpMode {
     DcMotor rr;
     DcMotor intake;
     DcMotor outtake;
+    DcMotor too;
     double motorPower;
     double intakePower;
     double outtakePower;
@@ -21,19 +22,20 @@ public class FullTeleOp extends OpMode {
     public void init() {
         fl = hardwareMap.dcMotor.get("frontleft");
         fr = hardwareMap.dcMotor.get("frontright");
-        rl = hardwareMap.dcMotor.get("rearleft");
-        rr = hardwareMap.dcMotor.get("rearright");
+        rl = hardwareMap.dcMotor.get("backleft");
+        rr = hardwareMap.dcMotor.get("backright");
         intake = hardwareMap.dcMotor.get("intake");
-        outtake = hardwareMap.dcMotor.get("outtake2");
-        rl.setDirection(DcMotor.Direction.REVERSE);//can you test if this works
-        rr.setDirection(DcMotor.Direction.REVERSE);
+        outtake = hardwareMap.dcMotor.get("outake2");
+        too = hardwareMap.dcMotor.get("too1");
+        fr.setDirection(DcMotorSimple.Direction.REVERSE);
+        rr.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
     public void loop() {
         //gamepad1: moving (rightsticky) and strafing (leftstickx)
         if (gamepad1.right_stick_y!=0){
-            motorPower = gamepad1.right_stick_y;
+            motorPower = -gamepad1.right_stick_y;
             fl.setPower(motorPower);
             fr.setPower(motorPower);
             rr.setPower(motorPower);
@@ -43,15 +45,16 @@ public class FullTeleOp extends OpMode {
             strafe(motorPower);
         }
         //gamepad2: intake and outtake
+        outtake.setPower(1);
         intakePower = -gamepad2.left_stick_y;
         intake.setPower(intakePower);
         outtakePower = -gamepad2.right_stick_y;
-        intake.setPower(outtakePower);
+        too.setPower(outtakePower);
     }
     public void strafe(double power){
         fl.setPower(power);
         fr.setPower(power);
-        rr.setPower(-power);
-        rl.setPower(-power);
+        rr.setPower(power);
+        rl.setPower(power);
     }
 }
